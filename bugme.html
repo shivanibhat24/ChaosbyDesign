@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chaos By Design - Frustratingly Functional UI Challenge</title>
+  <style>
+    body {
+      cursor: none;
+      background: repeating-linear-gradient(45deg, #ff00ff, #00ffff 10px, #ffff00 20px, #ff0000 30px);
+      font-family: "Comic Sans MS", "Papyrus", fantasy;
+      overflow-x: hidden;
+    }
+    
+    #custom-cursor {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50'><text y='20' font-size='20'>💩</text></svg>");
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-30px, -10px);
+    }
+    
+    h1 {
+      font-size: 25px;
+      color: blue;
+      text-shadow: 3px 3px lime, -3px -3px red;
+      animation: spin 5s linear infinite;
+      position: relative;
+      text-align: center;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border: 6px dashed purple;
+      position: relative;
+      transform: skew(5deg, 2deg);
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+      position: relative;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: purple;
+      transform: rotate(3deg);
+      font-size: 16px;
+    }
+    
+    input, textarea, select {
+      width: 80%;
+      padding: 8px;
+      border: 3px dotted orange;
+      font-family: "Comic Sans MS";
+      transform: rotate(-2deg);
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      transform: scale(0.9) rotate(5deg);
+    }
+    
+    .form-group:hover {
+      animation: jitter 0.3s infinite;
+    }
+    
+    @keyframes jitter {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-5px, 5px) rotate(1deg); }
+      50% { transform: translate(5px, -5px) rotate(-1deg); }
+      75% { transform: translate(-5px, -5px) rotate(1deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    
+    button {
+      padding: 10px 20px;
+      background-color: yellow;
+      color: blue;
+      border: 5px ridge red;
+      font-family: "Comic Sans MS";
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      animation: rainbow 3s linear infinite;
+      position: relative;
+      left: 50px;
+    }
+    
+    @keyframes rainbow {
+      0% { color: red; }
+      14% { color: orange; }
+      28% { color: yellow; }
+      42% { color: green; }
+      57% { color: blue; }
+      71% { color: indigo; }
+      85% { color: violet; }
+      100% { color: red; }
+    }
+    
+    button:hover {
+      transform: scale(0.8) rotate(20deg);
+    }
+    
+    .popup {
+      position: fixed;
+      background-color: pink;
+      border: 2px solid black;
+      padding: 20px;
+      z-index: 100;
+      animation: move 8s linear infinite;
+      font-size: 14px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    @keyframes move {
+      0% { top: 10%; left: 10%; }
+      25% { top: 10%; left: 70%; }
+      50% { top: 70%; left: 70%; }
+      75% { top: 70%; left: 10%; }
+      100% { top: 10%; left: 10%; }
+    }
+    
+    .popup-close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    #newsletter-popup {
+      width: 300px;
+      height: 150px;
+    }
+    
+    #cookie-notice {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(255, 255, 0, 0.8);
+      padding: 10px;
+      text-align: center;
+      font-size: 16px;
+      z-index: 999;
+    }
+    
+    #cookie-close {
+      display: inline-block;
+      padding: 5px 10px;
+      margin-left: 10px;
+      background-color: green;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    
+    #cookie-close:hover {
+      transform: translateX(20px);
+    }
+    
+    .inverted {
+      filter: invert(100%);
+    }
+    
+    .captcha {
+      margin: 20px 0;
+      text-align: center;
+      background-color: #eee;
+      padding: 10px;
+      transform: rotate(-3deg);
+    }
+    
+    .captcha-image {
+      font-size: 20px;
+      letter-spacing: -2px;
+      font-weight: bold;
+      color: #333;
+      text-decoration: line-through;
+      background: repeating-linear-gradient(45deg, #aaa, #fff 5px);
+      padding: 5px;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="custom-cursor"></div>
+  
+  <div class="container">
+    <h1>WELCOME TO OUR AWESOME WEBSITE</h1>
+    
+    <div class="form-group">
+      <label for="name">ENTER YOUR NAME:</label>
+      <input type="text" id="name" name="name" onmouseover="this.value=this.value.split('').reverse().join('')">
+    </div>
+    
+    <div class="form-group">
+      <label for="email">ENTER YOUR EMAIL:</label>
+      <input type="email" id="email" name="email" autocomplete="off" onkeydown="setTimeout(() => this.blur(), 2000)">
+    </div>
+    
+    <div class="form-group">
+      <label for="message">YOUR MESSAGE:</label>
+      <textarea id="message" name="message" rows="4" oninput="this.value = this.value.toUpperCase()"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="country">SELECT COUNTRY:</label>
+      <select id="country" name="country" onchange="this.selectedIndex = Math.floor(Math.random() * this.options.length)">
+        <option value="us">United States</option>
+        <option value="uk">United Kingdom</option>
+        <option value="ca">Canada</option>
+        <option value="au">Australia</option>
+        <option value="fr">France</option>
+      </select>
+    </div>
+    
+    <div class="captcha">
+      <p>Please enter the text below to prove you're human:</p>
+      <div class="captcha-image">Rj5xP9QzL7</div>
+      <input type="text" id="captcha-input" placeholder="Enter text above" 
+             onfocus="this.placeholder=''" 
+             onblur="this.placeholder='Enter text above'"
+             onkeydown="if(event.key != 'Backspace') { this.value += '*'; return false; }">
+    </div>
+    
+    <button id="submit-btn" onclick="handleSubmit()">SUBMIT FORM</button>
+  </div>
+  
+  <div id="newsletter-popup" class="popup" style="display: none;">
+    <span class="popup-close" onclick="togglePopup('newsletter-popup')">✖</span>
+    <h3>SUBSCRIBE TO OUR NEWSLETTER!</h3>
+    <p>Enter your email to get daily updates:</p>
+    <input type="email" id="newsletter-email">
+    <button onclick="alert('Thanks! You will now receive 50 emails per day!')">SUBSCRIBE</button>
+  </div>
+  
+  <div id="cookie-notice">
+    <p>We use cookies to track your every move on this website! Click 'I Accept' to continue.</p>
+    <a href="#" id="cookie-close" onmouseover="moveCookieButton()">I Accept</a>
+  </div>
+  
+  <script>
+    // Custom cursor
+    document.addEventListener('mousemove', function(e) {
+      const cursor = document.getElementById('custom-cursor');
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    
+    // Show popup after delay
+    setTimeout(function() {
+      togglePopup('newsletter-popup');
+    }, 3000);
+    
+    // Toggle popup visibility
+    function togglePopup(id) {
+      const popup = document.getElementById(id);
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+    }
+    
+    // Moving cookie button
+    function moveCookieButton() {
+      const button = document.getElementById('cookie-close');
+      const container = document.getElementById('cookie-notice');
+      const maxLeft = container.offsetWidth - button.offsetWidth - 20;
+      button.style.position = 'absolute';
+      button.style.left = Math.random() * maxLeft + 'px';
+    }
+    
+    // Handle form submission
+    function handleSubmit() {
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const messageInput = document.getElementById('message');
+      
+      // Invert the entire page temporarily
+      document.body.classList.add('inverted');
+      setTimeout(() => document.body.classList.remove('inverted'), 2000);
+      
+      // Random validation messages regardless of input
+      const randomMessages = [
+        "Your form has been submitted, or has it?",
+        "Error 404: Submit button not found (but it was just here...)",
+        "Your data is being processed at the speed of a sloth",
+        "Congratulations! You've won nothing!",
+        "Form submitted successfully to our virtual paper shredder"
+      ];
+      
+      alert(randomMessages[Math.floor(Math.random() * randomMessages.length)]);
+      
+      // Reset the form fields with random values
+      nameInput.value = "Anonymous" + Math.floor(Math.random() * 1000);
+      emailInput.value = "random" + Math.floor(Math.random() * 100) + "@nowhere.com";
+      messageInput.value = "YOUR MESSAGE HAS BEEN REPLACED";
+      
+      // Create more popups!
+      createRandomPopup();
+    }
+    
+    // Create random popups
+    function createRandomPopup() {
+      const popup = document.createElement('div');
+      popup.className = 'popup';
+      popup.style.width = '200px';
+      popup.style.height = '100px';
+      popup.style.backgroundColor = getRandomColor();
+      popup.style.top = Math.random() * 70 + '%';
+      popup.style.left = Math.random() * 70 + '%';
+      
+      const closeBtn = document.createElement('span');
+      closeBtn.className = 'popup-close';
+      closeBtn.innerHTML = '✖';
+      closeBtn.onclick = function() {
+        popup.remove();
+        // 50% chance to create another popup when closing one
+        if (Math.random() > 0.5) {
+          createRandomPopup();
+        }
+      };
+      
+      const content = document.createElement('p');
+      content.innerHTML = 'Congratulations! You found popup #' + Math.floor(Math.random() * 1000) + '!';
+      
+      popup.appendChild(closeBtn);
+      popup.appendChild(content);
+      document.body.appendChild(popup);
+    }
+    
+    // Get random color
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+    
+    // Random page tilt
+    setInterval(function() {
+      const angle = (Math.random() - 0.5) * 5;
+      document.body.style.transform = 'rotate(' + angle + 'deg)';
+    }, 10000);
+    
+    // Prevent right-click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    
+    // Random text selection prevention
+    setInterval(function() {
+      if (Math.random() > 0.7) {
+        document.body.style.userSelect = document.body.style.userSelect === 'none' ? 'auto' : 'none';
+      }
+    }, 8000);
+  </script>
+</body>
+</html>
