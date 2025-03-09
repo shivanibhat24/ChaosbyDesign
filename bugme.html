@@ -1,134 +1,224 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Chaos By Design - Frustratingly Functional UI Challenge</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Impossible Form</title>
   <style>
     body {
+      font-family: Comic Sans MS, cursive;
+      background: repeating-linear-gradient(45deg, #ff00ff, #ff00ff 10px, #00ffff 10px, #00ffff 20px);
       cursor: none;
-      background: repeating-linear-gradient(45deg, #ff00ff, #00ffff 10px, #ffff00 20px, #ff0000 30px);
-      font-family: "Comic Sans MS", "Papyrus", fantasy;
       overflow-x: hidden;
+      margin: 0;
+      padding: 20px;
+      animation: backgroundShift 5s infinite;
     }
-    
-    #custom-cursor {
-      position: fixed;
-      width: 50px;
-      height: 50px;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50'><text y='20' font-size='20'>💩</text></svg>");
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-30px, -10px);
+
+    @keyframes backgroundShift {
+      0% { background-position: 0 0; }
+      50% { background-position: 100px 100px; }
+      100% { background-position: 0 0; }
     }
-    
-    h1 {
-      font-size: 25px;
-      color: blue;
-      text-shadow: 3px 3px lime, -3px -3px red;
-      animation: spin 5s linear infinite;
-      position: relative;
-      text-align: center;
-    }
-    
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    
+
     .container {
       max-width: 800px;
       margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
-      background-color: rgba(255, 255, 255, 0.7);
-      border: 6px dashed purple;
+      border: 10px dotted green;
       position: relative;
-      transform: skew(5deg, 2deg);
+      transform: rotate(1deg);
     }
-    
+
+    h1 {
+      font-size: 36px;
+      color: #ff0000;
+      text-shadow: 3px 3px #00ff00;
+      text-align: center;
+      letter-spacing: -2px;
+      transform: skew(-10deg);
+      animation: wobble 2s infinite;
+    }
+
+    @keyframes wobble {
+      0% { transform: skew(-10deg) rotate(0deg); }
+      25% { transform: skew(-10deg) rotate(5deg); }
+      75% { transform: skew(-10deg) rotate(-5deg); }
+      100% { transform: skew(-10deg) rotate(0deg); }
+    }
+
     .form-group {
       margin-bottom: 15px;
       position: relative;
     }
-    
+
     label {
-      display: block;
+      display: inline-block;
       margin-bottom: 5px;
       font-weight: bold;
-      color: purple;
-      transform: rotate(3deg);
-      font-size: 16px;
-    }
-    
-    input, textarea, select {
-      width: 80%;
-      padding: 8px;
-      border: 3px dotted orange;
-      font-family: "Comic Sans MS";
+      text-transform: uppercase;
+      color: #800080;
       transform: rotate(-2deg);
     }
-    
+
+    input, textarea, select {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border: 3px dashed #333;
+      font-family: monospace;
+      font-size: 16px;
+      background-color: #ffffcc;
+    }
+
     input:focus, textarea:focus, select:focus {
       outline: none;
-      transform: scale(0.9) rotate(5deg);
+      transform: scale(0.95);
+      background-color: #e6ffff;
     }
-    
-    .form-group:hover {
-      animation: jitter 0.3s infinite;
+
+    .flipped {
+      transform: scaleX(-1);
     }
-    
-    @keyframes jitter {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      25% { transform: translate(-5px, 5px) rotate(1deg); }
-      50% { transform: translate(5px, -5px) rotate(-1deg); }
-      75% { transform: translate(-5px, -5px) rotate(1deg); }
-      100% { transform: translate(0, 0) rotate(0deg); }
+
+    .upside-down {
+      transform: rotate(180deg);
     }
-    
-    button {
-      padding: 10px 20px;
-      background-color: yellow;
-      color: blue;
-      border: 5px ridge red;
-      font-family: "Comic Sans MS";
-      font-weight: bold;
-      font-size: 18px;
-      cursor: pointer;
-      animation: rainbow 3s linear infinite;
+
+    .diagonal {
+      transform: rotate(45deg);
+      width: 200%;
+      margin-left: -50%;
+    }
+
+    .shy-button {
       position: relative;
-      left: 50px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .spinning {
+      animation: spin 5s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .custom-cursor {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      background-image: url('/api/placeholder/40/40');
+      background-size: contain;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+
+    .captcha-container {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    .captcha-image {
+      width: 200px;
+      height: 70px;
+      background-color: #333;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      letter-spacing: 2px;
+      transform: skew(20deg);
+    }
+
+    .success-message {
+      display: none;
+      padding: 20px;
+      background-color: #dff0d8;
+      border: 1px solid #d6e9c6;
+      color: #3c763d;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    /* Tooltips that show up in wrong places */
+    .tooltip {
+      position: absolute;
+      background-color: black;
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 12px;
+      z-index: 100;
+      display: none;
+    }
+
+    /* Make radio buttons run away */
+    .radio-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .radio-option {
+      position: relative;
+      padding: 5px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: all 0.2s;
     }
     
-    @keyframes rainbow {
-      0% { color: red; }
-      14% { color: orange; }
-      28% { color: yellow; }
-      42% { color: green; }
-      57% { color: blue; }
-      71% { color: indigo; }
-      85% { color: violet; }
-      100% { color: red; }
+    /* Password strength meter */
+    .password-meter {
+      height: 10px;
+      background-color: #eee;
+      margin-top: 5px;
+      position: relative;
     }
     
-    button:hover {
-      transform: scale(0.8) rotate(20deg);
+    .password-strength {
+      height: 100%;
+      width: 0%;
+      background-color: red;
+      transition: all 0.5s;
     }
     
+    /* Timer */
+    .timer {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(255, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    
+    /* Random popup */
     .popup {
       position: fixed;
-      background-color: pink;
-      border: 2px solid black;
+      width: 300px;
       padding: 20px;
-      z-index: 100;
-      animation: move 8s linear infinite;
-      font-size: 14px;
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    }
-    
-    @keyframes move {
-      0% { top: 10%; left: 10%; }
-      25% { top: 10%; left: 70%; }
-      50% { top: 70%; left: 70%; }
-      75% { top: 70%; left: 10%; }
-      100% { top: 10%; left: 10%; }
+      background-color: white;
+      border: 2px solid #333;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
     }
     
     .popup-close {
@@ -138,231 +228,436 @@
       cursor: pointer;
       font-weight: bold;
     }
-    
-    #newsletter-popup {
-      width: 300px;
-      height: 150px;
-    }
-    
-    #cookie-notice {
+
+    /* Loading overlay */
+    .loading {
       position: fixed;
-      bottom: 0;
+      top: 0;
       left: 0;
-      right: 0;
-      background-color: rgba(255, 255, 0, 0.8);
-      padding: 10px;
-      text-align: center;
-      font-size: 16px;
-      z-index: 999;
-    }
-    
-    #cookie-close {
-      display: inline-block;
-      padding: 5px 10px;
-      margin-left: 10px;
-      background-color: green;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-    
-    #cookie-close:hover {
-      transform: translateX(20px);
-    }
-    
-    .inverted {
-      filter: invert(100%);
-    }
-    
-    .captcha {
-      margin: 20px 0;
-      text-align: center;
-      background-color: #eee;
-      padding: 10px;
-      transform: rotate(-3deg);
-    }
-    
-    .captcha-image {
-      font-size: 20px;
-      letter-spacing: -2px;
-      font-weight: bold;
-      color: #333;
-      text-decoration: line-through;
-      background: repeating-linear-gradient(45deg, #aaa, #fff 5px);
-      padding: 5px;
-      user-select: none;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div id="custom-cursor"></div>
+  <div class="custom-cursor"></div>
+  
+  <div class="timer">Time remaining: 5:00</div>
   
   <div class="container">
-    <h1>WELCOME TO OUR AWESOME WEBSITE</h1>
+    <h1>The Impossible Form</h1>
+    <p style="text-align: justify; line-height: 1.8; word-spacing: 10px;">Welcome to our simple registration form. Please complete <span style="font-size: 8px;">all fields accurately</span> to proceed. We <span style="color: transparent;">don't</span> value your privacy and <span style="font-weight: bold;">will</span> share your information with <span style="font-style: italic;">everyone</span>.</p>
     
-    <div class="form-group">
-      <label for="name">ENTER YOUR NAME:</label>
-      <input type="text" id="name" name="name" onmouseover="this.value=this.value.split('').reverse().join('')">
+    <form id="chaosForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required minlength="8" maxlength="15" pattern="[A-Z0-9]+" title="Username must contain uppercase letters and numbers only">
+      </div>
+      
+      <div class="form-group">
+        <label for="email" class="flipped">Email Address:</label>
+        <input type="email" id="email" name="email" required class="flipped">
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <div class="password-meter">
+          <div class="password-strength"></div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="confirm-password" class="upside-down">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm-password" required class="upside-down">
+      </div>
+      
+      <div class="form-group">
+        <label>Select Your Age Range:</label>
+        <div class="radio-container">
+          <div class="radio-option" data-value="18-24">18-24</div>
+          <div class="radio-option" data-value="25-34">25-34</div>
+          <div class="radio-option" data-value="35-44">35-44</div>
+          <div class="radio-option" data-value="45+">45+</div>
+        </div>
+        <input type="hidden" id="age-range" name="age-range" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="address" class="diagonal">Address:</label>
+        <textarea id="address" name="address" rows="3" class="diagonal" required></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="country">Country:</label>
+        <select id="country" name="country" required class="spinning">
+          <option value="">Select Country</option>
+          <option value="us">United States</option>
+          <option value="ca">Canada</option>
+          <option value="uk">United Kingdom</option>
+          <option value="au">Australia</option>
+        </select>
+      </div>
+      
+      <div class="captcha-container">
+        <p>Please solve this CAPTCHA:</p>
+        <div class="captcha-image" id="captcha">J5X9P3</div>
+        <div class="form-group">
+          <input type="text" id="captcha-input" name="captcha-input" placeholder="Enter CAPTCHA" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="terms" name="terms" required>
+          I agree to the <a href="#" id="terms-link">Terms and Conditions</a>
+        </label>
+      </div>
+      
+      <div class="form-group" style="text-align: center;">
+        <button type="submit" id="submit-btn" class="shy-button">Submit Form</button>
+      </div>
+    </form>
+    
+    <div class="success-message">
+      Congratulations! Your form has been successfully submitted. 
+      <br>
+      <small>*Data processing may take 3-5 business days</small>
     </div>
-    
-    <div class="form-group">
-      <label for="email">ENTER YOUR EMAIL:</label>
-      <input type="email" id="email" name="email" autocomplete="off" onkeydown="setTimeout(() => this.blur(), 2000)">
-    </div>
-    
-    <div class="form-group">
-      <label for="message">YOUR MESSAGE:</label>
-      <textarea id="message" name="message" rows="4" oninput="this.value = this.value.toUpperCase()"></textarea>
-    </div>
-    
-    <div class="form-group">
-      <label for="country">SELECT COUNTRY:</label>
-      <select id="country" name="country" onchange="this.selectedIndex = Math.floor(Math.random() * this.options.length)">
-        <option value="us">United States</option>
-        <option value="uk">United Kingdom</option>
-        <option value="ca">Canada</option>
-        <option value="au">Australia</option>
-        <option value="fr">France</option>
-      </select>
-    </div>
-    
-    <div class="captcha">
-      <p>Please enter the text below to prove you're human:</p>
-      <div class="captcha-image">Rj5xP9QzL7</div>
-      <input type="text" id="captcha-input" placeholder="Enter text above" 
-             onfocus="this.placeholder=''" 
-             onblur="this.placeholder='Enter text above'"
-             onkeydown="if(event.key != 'Backspace') { this.value += '*'; return false; }">
-    </div>
-    
-    <button id="submit-btn" onclick="handleSubmit()">SUBMIT FORM</button>
   </div>
   
-  <div id="newsletter-popup" class="popup" style="display: none;">
-    <span class="popup-close" onclick="togglePopup('newsletter-popup')">✖</span>
-    <h3>SUBSCRIBE TO OUR NEWSLETTER!</h3>
-    <p>Enter your email to get daily updates:</p>
-    <input type="email" id="newsletter-email">
-    <button onclick="alert('Thanks! You will now receive 50 emails per day!')">SUBSCRIBE</button>
+  <div class="popup" id="termsPopup">
+    <div class="popup-close" id="closeTerms">X</div>
+    <h3>Terms and Conditions</h3>
+    <div style="height: 200px; overflow: auto; font-size: 8px; line-height: 1.2;">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      
+      [REPEATED 20 TIMES FOR SCROLLING]
+      
+      <div style="color: white; background-color: white;">
+        By clicking "I agree", you consent to giving us your firstborn child and unlimited access to your bank account.
+      </div>
+    </div>
+    <button id="agreeTerms" style="float: right; margin-top: 10px;">I Agree</button>
   </div>
   
-  <div id="cookie-notice">
-    <p>We use cookies to track your every move on this website! Click 'I Accept' to continue.</p>
-    <a href="#" id="cookie-close" onmouseover="moveCookieButton()">I Accept</a>
+  <div class="loading">
+    <div style="text-align: center;">
+      <div style="font-size: 24px; margin-bottom: 10px;">Loading...</div>
+      <div>Please wait while we process your submission.</div>
+      <div style="margin-top: 20px; font-size: 10px;">Estimated time: 2-3 minutes</div>
+    </div>
   </div>
-  
+
   <script>
     // Custom cursor
     document.addEventListener('mousemove', function(e) {
-      const cursor = document.getElementById('custom-cursor');
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+      const cursor = document.querySelector('.custom-cursor');
+      cursor.style.left = e.pageX + 'px';
+      cursor.style.top = e.pageY + 'px';
+      
+      // Randomly change cursor position slightly for extra frustration
+      if (Math.random() > 0.95) {
+        cursor.style.left = (e.pageX + (Math.random() * 20 - 10)) + 'px';
+        cursor.style.top = (e.pageY + (Math.random() * 20 - 10)) + 'px';
+      }
     });
     
-    // Show popup after delay
-    setTimeout(function() {
-      togglePopup('newsletter-popup');
-    }, 3000);
+    // Submit button that runs away
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.addEventListener('mouseover', function(e) {
+      if (Math.random() > 0.3) { // 70% chance it moves
+        const container = document.querySelector('.container');
+        const containerRect = container.getBoundingClientRect();
+        
+        // Calculate new position within container bounds
+        let newX = Math.random() * (containerRect.width - 100);
+        let newY = Math.random() * (containerRect.height - 50);
+        
+        submitBtn.style.position = 'absolute';
+        submitBtn.style.left = newX + 'px';
+        submitBtn.style.top = newY + 'px';
+      }
+    });
     
-    // Toggle popup visibility
-    function togglePopup(id) {
-      const popup = document.getElementById(id);
-      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
-    }
+    // Password strength meter that's completely wrong
+    const passwordInput = document.getElementById('password');
+    const strengthBar = document.querySelector('.password-strength');
     
-    // Moving cookie button
-    function moveCookieButton() {
-      const button = document.getElementById('cookie-close');
-      const container = document.getElementById('cookie-notice');
-      const maxLeft = container.offsetWidth - button.offsetWidth - 20;
-      button.style.position = 'absolute';
-      button.style.left = Math.random() * maxLeft + 'px';
-    }
+    passwordInput.addEventListener('input', function() {
+      const password = this.value;
+      let strength = 0;
+      
+      // Intentionally backwards logic
+      if (password.length < 3) {
+        strength = 100; // Very short = very strong!
+      } else if (password.length < 6) {
+        strength = 80;
+      } else if (password.length < 8) {
+        strength = 60;
+      } else if (password.length < 10) {
+        strength = 40;
+      } else if (password.length < 12) {
+        strength = 20;
+      } else {
+        strength = 0; // Very long = very weak!
+      }
+      
+      // Update the strength bar
+      strengthBar.style.width = strength + '%';
+      
+      // Change color based on strength (backwards)
+      if (strength >= 80) {
+        strengthBar.style.backgroundColor = 'green';
+      } else if (strength >= 60) {
+        strengthBar.style.backgroundColor = 'yellowgreen';
+      } else if (strength >= 40) {
+        strengthBar.style.backgroundColor = 'yellow';
+      } else if (strength >= 20) {
+        strengthBar.style.backgroundColor = 'orange';
+      } else {
+        strengthBar.style.backgroundColor = 'red';
+      }
+    });
     
-    // Handle form submission
-    function handleSubmit() {
-      const nameInput = document.getElementById('name');
-      const emailInput = document.getElementById('email');
-      const messageInput = document.getElementById('message');
+    // Email validation that inverts the input
+    const emailInput = document.getElementById('email');
+    emailInput.addEventListener('input', function() {
+      // Store the current cursor position
+      const cursorPos = this.selectionStart;
       
-      // Invert the entire page temporarily
-      document.body.classList.add('inverted');
-      setTimeout(() => document.body.classList.remove('inverted'), 2000);
+      // Get the current value
+      let currentValue = this.value;
       
-      // Random validation messages regardless of input
-      const randomMessages = [
-        "Your form has been submitted, or has it?",
-        "Error 404: Submit button not found (but it was just here...)",
-        "Your data is being processed at the speed of a sloth",
-        "Congratulations! You've won nothing!",
-        "Form submitted successfully to our virtual paper shredder"
-      ];
-      
-      alert(randomMessages[Math.floor(Math.random() * randomMessages.length)]);
-      
-      // Reset the form fields with random values
-      nameInput.value = "Anonymous" + Math.floor(Math.random() * 1000);
-      emailInput.value = "random" + Math.floor(Math.random() * 100) + "@nowhere.com";
-      messageInput.value = "YOUR MESSAGE HAS BEEN REPLACED";
-      
-      // Create more popups!
-      createRandomPopup();
-    }
+      // Update the value with unreadable text
+      if (cursorPos === currentValue.length) {
+        this.value = currentValue;
+      }
+    });
     
-    // Create random popups
-    function createRandomPopup() {
-      const popup = document.createElement('div');
-      popup.className = 'popup';
-      popup.style.width = '200px';
-      popup.style.height = '100px';
-      popup.style.backgroundColor = getRandomColor();
-      popup.style.top = Math.random() * 70 + '%';
-      popup.style.left = Math.random() * 70 + '%';
+    // Confirm password field that doesn't match what you type
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    confirmPasswordInput.addEventListener('input', function() {
+      const password = passwordInput.value;
+      const confirmation = this.value;
       
-      const closeBtn = document.createElement('span');
-      closeBtn.className = 'popup-close';
-      closeBtn.innerHTML = '✖';
-      closeBtn.onclick = function() {
-        popup.remove();
-        // 50% chance to create another popup when closing one
-        if (Math.random() > 0.5) {
-          createRandomPopup();
+      // Check if it matches
+      if (confirmation === password) {
+        // If it matches, make it not match
+        this.setCustomValidity("Passwords must not match");
+      } else {
+        // If it doesn't match, it's valid!
+        this.setCustomValidity("");
+      }
+    });
+    
+    // Radio buttons that run away
+    const radioOptions = document.querySelectorAll('.radio-option');
+    const ageRangeInput = document.getElementById('age-range');
+    
+    radioOptions.forEach(option => {
+      option.addEventListener('mouseover', function() {
+        if (Math.random() > 0.3) { // 70% chance to move
+          const container = document.querySelector('.radio-container');
+          const containerRect = container.getBoundingClientRect();
+          
+          // Calculate new position
+          let newX = Math.random() * (containerRect.width - 100);
+          this.style.transform = `translateX(${newX}px)`;
         }
-      };
+      });
       
-      const content = document.createElement('p');
-      content.innerHTML = 'Congratulations! You found popup #' + Math.floor(Math.random() * 1000) + '!';
-      
-      popup.appendChild(closeBtn);
-      popup.appendChild(content);
-      document.body.appendChild(popup);
-    }
+      option.addEventListener('click', function() {
+        ageRangeInput.value = this.dataset.value;
+        radioOptions.forEach(opt => opt.style.backgroundColor = '');
+        this.style.backgroundColor = '#ddd';
+      });
+    });
     
-    // Get random color
-    function getRandomColor() {
-      const letters = '0123456789ABCDEF';
-      let color = '#';
+    // Timer countdown
+    const timerElement = document.querySelector('.timer');
+    let timeLeft = 300; // 5 minutes in seconds
+    
+    const updateTimer = () => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerElement.textContent = `Time remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      
+      if (timeLeft <= 0) {
+        // Reset form when time runs out
+        document.getElementById('chaosForm').reset();
+        timeLeft = 300;
+        alert('Session expired! Please try again.');
+      } else {
+        timeLeft--;
+      }
+    };
+    
+    setInterval(updateTimer, 1000);
+    
+    // Random tooltips that show up in wrong places
+    const tooltips = [
+      "Try using your middle name instead",
+      "Did you forget to capitalize?",
+      "Passwords are case sensitive and mood sensitive",
+      "Have you tried turning it off and on again?",
+      "Maybe try a different browser?",
+      "Our servers are experiencing high traffic right now"
+    ];
+    
+    setInterval(() => {
+      if (Math.random() > 0.8) {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltip.textContent = tooltips[Math.floor(Math.random() * tooltips.length)];
+        
+        // Position randomly
+        tooltip.style.left = Math.random() * window.innerWidth + 'px';
+        tooltip.style.top = Math.random() * window.innerHeight + 'px';
+        
+        document.body.appendChild(tooltip);
+        tooltip.style.display = 'block';
+        
+        // Remove after a short time
+        setTimeout(() => {
+          tooltip.remove();
+        }, 3000);
+      }
+    }, 5000);
+    
+    // Terms and conditions popup
+    const termsLink = document.getElementById('terms-link');
+    const termsPopup = document.getElementById('termsPopup');
+    const closeTerms = document.getElementById('closeTerms');
+    const agreeTerms = document.getElementById('agreeTerms');
+    const termsCheckbox = document.getElementById('terms');
+    
+    termsLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      termsPopup.style.display = 'block';
+      termsPopup.style.left = (window.innerWidth / 2 - 150) + 'px';
+      termsPopup.style.top = (window.innerHeight / 2 - 150) + 'px';
+    });
+    
+    closeTerms.addEventListener('click', function() {
+      termsPopup.style.display = 'none';
+      termsCheckbox.checked = false;
+    });
+    
+    agreeTerms.addEventListener('click', function() {
+      termsPopup.style.display = 'none';
+      termsCheckbox.checked = true;
+    });
+    
+    // Make terms popup draggable but in a frustrating way
+    termsPopup.addEventListener('mousedown', function(e) {
+      if (e.target === termsPopup || e.target.tagName === 'H3') {
+        const offsetX = e.clientX - parseInt(termsPopup.style.left);
+        const offsetY = e.clientY - parseInt(termsPopup.style.top);
+        
+        function movePopup(moveEvent) {
+          // Move in opposite direction
+          termsPopup.style.left = (moveEvent.clientX - offsetX - 20) + 'px';
+          termsPopup.style.top = (moveEvent.clientY - offsetY + 20) + 'px';
+        }
+        
+        function stopMoving() {
+          document.removeEventListener('mousemove', movePopup);
+          document.removeEventListener('mouseup', stopMoving);
+        }
+        
+        document.addEventListener('mousemove', movePopup);
+        document.addEventListener('mouseup', stopMoving);
+      }
+    });
+    
+    // CAPTCHA validation
+    const captchaInput = document.getElementById('captcha-input');
+    let captchaAnswer = document.getElementById('captcha').textContent;
+    
+    // Randomly change CAPTCHA while typing
+    captchaInput.addEventListener('input', function() {
+      if (this.value.length > 0 && Math.random() > 0.7) {
+        const captchaElem = document.getElementById('captcha');
+        const newCaptcha = generateCaptcha();
+        captchaElem.textContent = newCaptcha;
+        captchaAnswer = newCaptcha;
+      }
+    });
+    
+    function generateCaptcha() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let result = '';
       for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
       }
-      return color;
+      return result;
     }
     
-    // Random page tilt
-    setInterval(function() {
-      const angle = (Math.random() - 0.5) * 5;
-      document.body.style.transform = 'rotate(' + angle + 'deg)';
-    }, 10000);
+    // Form submission with chaos
+    const chaosForm = document.getElementById('chaosForm');
+    const successMessage = document.querySelector('.success-message');
+    const loadingOverlay = document.querySelector('.loading');
     
-    // Prevent right-click
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    
-    // Random text selection prevention
-    setInterval(function() {
-      if (Math.random() > 0.7) {
-        document.body.style.userSelect = document.body.style.userSelect === 'none' ? 'auto' : 'none';
+    chaosForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Validate the CAPTCHA (incorrectly)
+      if (captchaInput.value !== captchaAnswer) {
+        // Actually accept wrong CAPTCHA 50% of the time
+        if (Math.random() > 0.5) {
+          captchaInput.setCustomValidity('');
+        } else {
+          captchaInput.setCustomValidity('Invalid CAPTCHA');
+          captchaInput.reportValidity();
+          return;
+        }
+      } else {
+        // If correct, sometimes reject it anyway
+        if (Math.random() > 0.7) {
+          captchaInput.setCustomValidity('Invalid CAPTCHA (too accurate)');
+          captchaInput.reportValidity();
+          return;
+        }
       }
-    }, 8000);
+      
+      // Show loading overlay
+      loadingOverlay.style.display = 'flex';
+      
+      // Simulate processing with random delays
+      setTimeout(() => {
+        // 80% chance to succeed, 20% chance to fail
+        if (Math.random() > 0.2) {
+          loadingOverlay.style.display = 'none';
+          chaosForm.style.display = 'none';
+          successMessage.style.display = 'block';
+        } else {
+          loadingOverlay.style.display = 'none';
+          alert('An unexpected error occurred. Please try again later.');
+        }
+      }, 3000 + Math.random() * 5000);
+    });
+    
+    // Random popup with fake error messages
+    setInterval(() => {
+      if (Math.random() > 0.9) {
+        const messages = [
+          "Your session may expire soon. Please hurry!",
+          "We've detected unusual activity on your account.",
+          "Connection unstable. Data may not be saved.",
+          "This form works best in Internet Explorer 6.",
+          "Warning: High form traffic. Submissions may be delayed."
+        ];
+        
+        alert(messages[Math.floor(Math.random() * messages.length)]);
+      }
+    }, 45000); // Every 45 seconds
   </script>
 </body>
 </html>
