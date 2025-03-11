@@ -48,12 +48,6 @@ This project intentionally violates standard UX best practices while demonstrati
 4. **Increased Cognitive Load**: Conflicting visual cues and inconsistent validation
 5. **Artificial Friction**: Timer, movement, and unreliable feedback mechanisms
 
-## Project Structure
-
-```
-index.html        # Contains all HTML, CSS, and JavaScript in one file
-```
-
 ## Technical Details
 
 - **Cursor Manipulation**: Custom cursor implementation with slight random deviations
