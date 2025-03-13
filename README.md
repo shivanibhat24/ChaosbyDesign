@@ -67,3 +67,5 @@ This project demonstrates advanced understanding of UI/UX principles by delibera
 > "The best way to understand good design is to experience terrible design implemented expertly."
 
 Check the deployment at: [https://shivanibhat24.github.io/ChaosbyDesign/root/](https://shivanibhat24.github.io/ChaosbyDesign/root/ChaosbyDesign.html)
+
+Update: This project won the competition!
